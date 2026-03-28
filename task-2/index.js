@@ -6,8 +6,8 @@ import chalk from 'chalk';
 dotenv.config();
 
 const apiConnection = new OpenAI({
-  baseURL: 'https://models.github.io/inference/',
-  apiKey: process.env.OPENAI_API_KEY,
+  baseURL: 'https://models.inference.ai.azure.com',
+  apiKey: process.env.AZURE_OPENAI_KEY,
 });
 
 async function startQuiz() {
@@ -17,7 +17,7 @@ async function startQuiz() {
   console.log(chalk.yellow('Generating questions from the AI...'));
 
   const response = await apiConnection.chat.completions.create({
-    model: 'openai/gpt-4o-mini',
+    model: 'gpt-4o-mini',
     messages: [
       {
         role: 'user',
@@ -66,12 +66,12 @@ Important:
 
     const userChoice = readlineSync.question('\n write your answer (1-4): ');
 
-    if (parseInt(userChoice) === currentQ.answer) {
+    if (parseInt(userChoice) === currentQ.correctAnswer) {
       console.log(chalk.green('Your answer is correct! +1 point'));
       score++;
     } else {
       console.log(
-        chalk.red(`✖ Wrong! The correct answer is: ${currentQ.answer}`),
+        chalk.red(`✖ Wrong! The correct answer is: ${currentQ.correctAnswer}`),
       );
     }
   }
