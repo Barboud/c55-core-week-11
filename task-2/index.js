@@ -6,8 +6,8 @@ import chalk from 'chalk';
 dotenv.config();
 
 const apiConnection = new OpenAI({
-  baseURL: 'https://models.inference.ai.azure.com',
-  apiKey: process.env.AZURE_OPENAI_KEY,
+  baseURL: 'https://models.github.ai/inference/',
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 async function startQuiz() {
@@ -17,7 +17,7 @@ async function startQuiz() {
   console.log(chalk.yellow('Generating questions from the AI...'));
 
   const response = await apiConnection.chat.completions.create({
-    model: 'gpt-4o-mini',
+    model: 'openai/gpt-4o-mini',
     messages: [
       {
         role: 'user',
